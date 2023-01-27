@@ -1,0 +1,9 @@
+.idea
+*.exe
+*.iml
+debug*
+__debug_bin
+artifact-service
+local.env
+.vscode
+*.log

@@ -1,0 +1,101 @@
+basePath: /
+consumes:
+- application/json
+definitions:
+  Article:
+    description: Article is used as DTO for repository
+    properties:
+      content:
+        type: string
+        x-go-name: Content
+      desc:
+        type: string
+        x-go-name: Desc
+      id:
+        type: string
+        x-go-name: ID
+      title:
+        type: string
+        x-go-name: Title
+    type: object
+    x-go-package: example-go-api/repository
+host: localhost:10000
+info:
+  title: Documentation of the articles API.
+  version: 1.0.0
+paths:
+  /:
+    get:
+      description: Main entry point for the application
+      operationId: homePage
+      responses:
+        "200":
+          $ref: '#/responses/noContentResponse'
+  /article:
+    delete:
+      description: Deletes a given article from the database
+      operationId: deleteArticle
+      responses:
+        "200":
+          $ref: '#/responses/noContentResponse'
+        "500":
+          $ref: '#/responses/errorResponse'
+      tags:
+      - article
+    post:
+      description: Creates a new article with provided values
+      operationId: createNewArticle
+      responses:
+        "200":
+          $ref: '#/responses/articleResponse'
+        "500":
+          $ref: '#/responses/errorValidation'
+      tags:
+      - article
+  /article/{id}:
+    get:
+      description: Returns a single article with given id {id}
+      operationId: returnSingleArticle
+      responses:
+        "200":
+          $ref: '#/responses/articleResponse'
+        "500":
+          $ref: '#/responses/errorResponse'
+      tags:
+      - article
+  /articles:
+    get:
+      description: Return a list of available articles stored in the database
+      operationId: returnAllArticles
+      responses:
+        "200":
+          $ref: '#/responses/articlesResponse'
+        "500":
+          $ref: '#/responses/errorResponse'
+      tags:
+      - articles
+produces:
+- application/json
+responses:
+  articleResponse:
+    description: Data structure representing a single article
+    schema:
+      $ref: '#/definitions/Article'
+  articlesResponse:
+    description: A list of articles
+    schema:
+      items:
+        $ref: '#/definitions/Article'
+      type: array
+  errorResponse:
+    description: Generic error message returned as a string
+  errorValidation:
+    description: Validation errors defined as an array of strings
+  noContentResponse:
+    description: No content is returned by this API endpoint
+schemes:
+- http
+securityDefinitions:
+  basic:
+    type: basic
+swagger: "2.0"
