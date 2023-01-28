@@ -6,7 +6,6 @@ following structure
 
 ```
 ├── package
-│   ├── interfaces.go
 │   ├── impl1.go
 │   ├── impl1_test.go
 │   ├── impl2.go

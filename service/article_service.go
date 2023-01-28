@@ -5,13 +5,20 @@ import (
 	"fmt"
 )
 
+type ArticleService interface {
+	AddArticle(article repository.Article) error
+	DeleteArticle(id string) error
+	GetArticle(id string) (repository.Article, error)
+	GetAllArticles() ([]repository.Article, error)
+}
+
 var (
 	repo repository.Repository
 )
 
 type svc struct{}
 
-//NewArticleService provides a ctor function for creating new ArticleService
+// NewArticleService provides a ctor function for creating new ArticleService
 func NewArticleService(r repository.Repository) ArticleService {
 	repo = r
 	return &svc{}
